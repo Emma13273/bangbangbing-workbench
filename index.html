@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="棒棒冰工作台">
+    <meta name="theme-color" content="#FF6B9D">
+    <title>棒棒冰工作台</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="apple-touch-icon" href="icons/icon-192.svg">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部栏 -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <span class="app-logo">🐻</span>
+                <span class="app-title">棒棒冰工作台</span>
+            </div>
+            <div class="top-bar-right">
+                <span class="date-display" id="dateDisplay"></span>
+                <span class="streak-badge" id="streakBadge" title="连续打卡天数">🔥 0</span>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- 左侧导航栏 -->
+            <nav class="sidebar" id="sidebar">
+                <div class="nav-item active" data-module="daily-tasks" onclick="App.navigate('daily-tasks')">
+                    <span class="nav-icon">✅</span>
+                    <span class="nav-label">每日任务</span>
+                </div>
+                <div class="nav-item" data-module="accounting" onclick="App.navigate('accounting')">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-label">记账</span>
+                </div>
+                <div class="nav-item" data-module="thesis" onclick="App.navigate('thesis')">
+                    <span class="nav-icon">📚</span>
+                    <span class="nav-label">论文写作</span>
+                </div>
+                <div class="nav-item" data-module="exam" onclick="App.navigate('exam')">
+                    <span class="nav-icon">🎓</span>
+                    <span class="nav-label">考公</span>
+                </div>
+                <div class="nav-item" data-module="job" onclick="App.navigate('job')">
+                    <span class="nav-icon">💼</span>
+                    <span class="nav-label">求职</span>
+                </div>
+                <div class="nav-item" data-module="fitness" onclick="App.navigate('fitness')">
+                    <span class="nav-icon">💪</span>
+                    <span class="nav-label">健身</span>
+                </div>
+            </nav>
+
+            <!-- 右侧内容区域 -->
+            <main class="content" id="content">
+                <!-- 内容由 JS 动态渲染 -->
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
