@@ -315,6 +315,79 @@ const SENTENCE_SEARCH_LINKS = [
     { name: '微信搜索·申论素材', url: 'https://weixin.sogou.com/weixin?type=2&query=%E7%94%B3%E8%AE%BA%E9%87%91%E5%8F%A5', icon: '💬' }
 ];
 
+/* 常识知识库（每日轮换5个） */
+const COMMON_SENSE_LIBRARY = [
+    { q: '我国宪法规定，中华人民共和国的根本制度是什么？', a: '社会主义制度', cat: '法律常识', source: '宪法第一条' },
+    { q: '我国的国家宪法日是哪一天？', a: '12月4日', cat: '法律常识', source: '2014年设立' },
+    { q: '我国的根本政治制度是什么？', a: '人民代表大会制度', cat: '政治常识', source: '宪法第二条' },
+    { q: '我国的基本政治制度有哪些？', a: '中国共产党领导的多党合作和政治协商制度、民族区域自治制度、基层群众自治制度', cat: '政治常识', source: '宪法' },
+    { q: '"四个全面"战略布局是什么？', a: '全面建设社会主义现代化国家、全面深化改革、全面依法治国、全面从严治党', cat: '政治理论', source: '党的十九大' },
+    { q: '"五位一体"总体布局是什么？', a: '经济建设、政治建设、文化建设、社会建设、生态文明建设', cat: '政治理论', source: '党的十八大' },
+    { q: '新发展理念是什么？', a: '创新、协调、绿色、开放、共享', cat: '政治理论', source: '十八届五中全会' },
+    { q: '我国社会主要矛盾是什么？', a: '人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾', cat: '政治理论', source: '党的十九大' },
+    { q: '"两个一百年"奋斗目标是什么？', a: '到建党一百年时全面建成小康社会；到新中国成立一百年时全面建成社会主义现代化强国', cat: '政治理论', source: '党的十九大' },
+    { q: '我国最深的海沟是？', a: '马里亚纳海沟，中国"奋斗者"号曾下潜至10909米', cat: '地理常识', source: '地理' },
+    { q: '世界上海拔最高的高原是？', a: '青藏高原，平均海拔4000米以上，被称为"世界屋脊"', cat: '地理常识', source: '地理' },
+    { q: '我国最长的河流是？', a: '长江，全长约6300公里', cat: '地理常识', source: '地理' },
+    { q: '唐诗"初唐四杰"是谁？', a: '王勃、杨炯、卢照邻、骆宾王', cat: '文学常识', source: '文学史' },
+    { q: '"唐宋八大家"是谁？', a: '韩愈、柳宗元、欧阳修、苏洵、苏轼、苏辙、王安石、曾巩', cat: '文学常识', source: '文学史' },
+    { q: '中国古代四大发明是？', a: '造纸术、印刷术、火药、指南针', cat: '历史常识', source: '历史' },
+    { q: '辛亥革命发生在哪一年？', a: '1911年', cat: '历史常识', source: '历史' },
+    { q: '丝绸之路的起点是哪里？', a: '长安（今西安）', cat: '历史常识', source: '历史' },
+    { q: 'GDP的全称是什么？', a: 'Gross Domestic Product，国内生产总值', cat: '经济常识', source: '经济学' },
+    { q: 'CPI的全称是什么？反映什么？', a: 'Consumer Price Index，居民消费价格指数，反映通货膨胀水平', cat: '经济常识', source: '经济学' },
+    { q: '什么是"三去一降一补"？', a: '去产能、去库存、去杠杆、降成本、补短板', cat: '经济常识', source: '供给侧结构性改革' },
+    { q: '我国的国歌是什么？', a: '《义勇军进行曲》，田汉作词，聂耳作曲', cat: '文化常识', source: '文化' },
+    { q: '二十四节气中"夏至"是什么意思？', a: '太阳直射北回归线，北半球白昼最长、黑夜最短的一天', cat: '文化常识', source: '传统文化' },
+    { q: '光的传播速度是多少？', a: '在真空中约为3x10^8米/秒（30万公里/秒）', cat: '科技常识', source: '物理' },
+    { q: 'DNA的全称是什么？', a: 'Deoxyribonucleic Acid，脱氧核糖核酸', cat: '科技常识', source: '生物' },
+    { q: '社会主义核心价值观是什么？', a: '国家层面：富强、民主、文明、和谐；社会层面：自由、平等、公正、法治；个人层面：爱国、敬业、诚信、友善', cat: '政治理论', source: '十八大报告' },
+    { q: '"一带一路"是什么？', a: '"丝绸之路经济带"和"21世纪海上丝绸之路"', cat: '政治理论', source: '2013年提出' },
+    { q: '人类命运共同体理念是谁提出的？', a: '习近平主席，2013年在莫斯科国际关系学院首次提出', cat: '政治理论', source: '外交' },
+    { q: '我国最高国家权力机关是？', a: '全国人民代表大会', cat: '法律常识', source: '宪法' },
+    { q: '我国的行政机关是？', a: '国务院（中央人民政府），是最高国家权力机关的执行机关', cat: '法律常识', source: '宪法' },
+    { q: '我国的审判机关是？', a: '人民法院', cat: '法律常识', source: '宪法' },
+    { q: '我国的法律监督机关是？', a: '人民检察院', cat: '法律常识', source: '宪法' },
+    { q: '"三严三实"是什么？', a: '严以修身、严以用权、严以律己；谋事要实、创业要实、做人要实', cat: '政治理论', source: '2014年' },
+    { q: '"两学一做"是什么？', a: '学党章党规、学系列讲话，做合格党员', cat: '政治理论', source: '2016年' },
+    { q: '黄河全长约多少公里？', a: '约5464公里，是中国第二长河', cat: '地理常识', source: '地理' },
+    { q: '我国面积最大的省级行政区是？', a: '新疆维吾尔自治区，面积约166万平方公里', cat: '地理常识', source: '地理' },
+    { q: '三角形的内角和是多少度？', a: '180度', cat: '科技常识', source: '数学' },
+    { q: '水的化学式是什么？', a: 'H2O，由两个氢原子和一个氧原子组成', cat: '科技常识', source: '化学' },
+    { q: '地球绕太阳公转一周大约需要多少天？', a: '约365.25天（一年）', cat: '科技常识', source: '天文' },
+    { q: '什么是基尼系数？', a: '衡量收入分配差异的指标，0-1之间，越接近1表示收入差距越大，0.4为国际警戒线', cat: '经济常识', source: '经济学' },
+    { q: '恩格尔系数是什么？', a: '食品支出占家庭总支出的比重，系数越低说明生活水平越高', cat: '经济常识', source: '经济学' }
+];
+
+/* 政治经济热点库（每日轮换5个） */
+const HOTSPOT_LIBRARY = [
+    { title: '新质生产力', cat: '经济', content: '新质生产力是创新起主导作用，摆脱传统经济增长方式、生产力发展路径，具有高科技、高效能、高质量特征，符合新发展理念的先进生产力质态。特点是创新，关键在质优，本质是先进生产力。', source: '2024年政府工作报告', insight: '申论角度：从科技创新、产业升级、人才培养三方面论述。可结合人工智能、新能源等案例。' },
+    { title: '人工智能+行动', cat: '科技', content: '2024年政府工作报告提出开展"人工智能+"行动，推动AI与制造业、服务业深度融合。涵盖智能制造、智慧医疗、自动驾驶等领域。中国AI核心产业规模超5000亿元，相关企业超4400家。', source: '2024年政府工作报告', insight: '申论角度：论述技术赋能传统产业、就业结构转型、伦理监管。可结合大模型等热点。' },
+    { title: '粮食安全与种业振兴', cat: '农业', content: '我国粮食产量连续9年稳定在1.3万亿斤以上。2024年中央一号文件强调抓紧抓好粮食和重要农产品稳产保供，深入实施种业振兴行动。种子是农业的"芯片"，打好种业翻身仗是粮食安全的关键。', source: '2024年中央一号文件', insight: '申论角度：可联系农林经济管理专业，从耕地保护、种业创新、农业现代化论述。' },
+    { title: '银发经济', cat: '社会', content: '2024年国务院办公厅印发《关于发展银发经济增进老年人福祉的意见》，这是我国首个以银发经济命名的政策文件。预计2035年我国银发经济规模将达到30万亿元，占GDP约10%。', source: '国务院办公厅2024年', insight: '申论角度：人口老龄化既是挑战也是机遇，发展银发经济可促进消费、扩大就业、改善民生。' },
+    { title: '碳达峰碳中和', cat: '生态', content: '"双碳"目标：力争2030年前实现碳达峰，2060年前实现碳中和。2024年全国碳排放权交易市场扩围，钢铁、水泥、电解铝等行业纳入。新能源汽车产销量连续多年全球第一。', source: '国家发改委', insight: '申论角度：绿色发展、能源转型、产业结构调整。可结合新能源汽车、光伏产业等案例。' },
+    { title: '统一大市场建设', cat: '经济', content: '2022年《关于加快建设全国统一大市场的意见》发布，要求破除地方保护和市场分割。2024年国务院持续推进要素市场化配置改革，打通制约经济循环的关键堵点。', source: '中共中央、国务院', insight: '申论角度：市场在资源配置中起决定性作用，打通国内大循环，释放内需潜力。' },
+    { title: '乡村全面振兴', cat: '农业', content: '2024年中央一号文件以学习运用"千万工程"经验为引领，推进乡村全面振兴。聚焦产业振兴、人才振兴、文化振兴、生态振兴、组织振兴"五大振兴"。', source: '2024年中央一号文件', insight: '申论角度：可联系农林经济管理专业，从产业兴旺、生态宜居、乡风文明、治理有效、生活富裕论述。' },
+    { title: '数据要素市场化', cat: '科技', content: '2023年国家数据局成立，2024年《"数据要素x"三年行动计划》发布，推动数据在工业、农业、金融等12个行业深度应用。数据已成为继土地、劳动力、资本、技术之后的第五大生产要素。', source: '国家数据局', insight: '申论角度：数据要素是数字经济核心引擎，需平衡数据利用与安全保护。' },
+    { title: '人民币国际化', cat: '金融', content: '2023年人民币跨境支付系统（CIPS）业务量持续增长，人民币在全球支付中占比超4.6%。越来越多国家将人民币纳入外汇储备，中俄、中沙等双边贸易中人民币结算比例大幅提升。', source: '中国人民银行', insight: '申论角度：从国际货币体系改革、金融安全、对外开放角度论述。' },
+    { title: '房地产新发展模式', cat: '经济', content: '2024年政府工作报告提出适应新型城镇化发展趋势和房地产市场供求关系变化，加快构建房地产发展新模式。加大保障性住房建设和供给，完善商品房相关基础性制度。', source: '2024年政府工作报告', insight: '申论角度：住房问题是重大民生问题，需坚持"房住不炒"，构建多主体供给、多渠道保障制度。' },
+    { title: '延迟退休政策', cat: '社会', content: '2024年9月，全国人大常委会审议通过《关于实施渐进式延迟法定退休年龄的决定》，从2025年1月1日起，用15年时间逐步将男职工退休年龄从60岁延至63岁，女职工从50/55岁延至55/58岁。', source: '全国人大常委会', insight: '申论角度：应对人口老龄化的必要举措，需配套就业保障、技能培训、弹性退休等措施。' },
+    { title: '营商环境优化', cat: '经济', content: '2024年《政府工作报告》强调全面落实促进民营经济发展壮大的意见及配套举措。市场化、法治化、国际化一流营商环境建设持续推进，民营经济促进法起草工作启动。', source: '国务院', insight: '申论角度：营商环境就是生产力，需从制度保障、公平竞争、减税降费等方面论述。' },
+    { title: '科技自立自强', cat: '科技', content: '党的二十大报告强调"必须坚持科技是第一生产力、人才是第一资源、创新是第一动力"。2024年我国全社会研发经费超3.3万亿元，全球创新指数排名升至第11位。', source: '科技部', insight: '申论角度：核心技术买不来要不来，需加大基础研究投入，培养创新人才，完善创新生态。' },
+    { title: '黄河流域生态保护', cat: '生态', content: '黄河流域生态保护和高质量发展是重大国家战略。2024年黄河连续25年不断流，干流全线水质达到III类以上。沿黄九省区协同推进生态保护、水资源节约集约利用。', source: '水利部', insight: '申论角度：生态保护与高质量发展并重，上下游协同、左右岸共治。' },
+    { title: '中医药传承创新', cat: '社会', content: '2024年《"十四五"中医药发展规划》持续推进，中医药在疫情防控中发挥重要作用。全国中医医院超7700家，中医药"走出去"步伐加快，针灸等已在全球196个国家和地区应用。', source: '国家中医药管理局', insight: '申论角度：中医药是中华优秀传统文化瑰宝，需传承精华、守正创新。' },
+    { title: '海洋经济', cat: '经济', content: '2024年我国海洋生产总值预计超10万亿元。海上风电、海洋牧场、深海采矿等新兴产业快速发展。"奋斗者"号全海深载人潜水器创造万米深潜纪录。', source: '自然资源部', insight: '申论角度：海洋是高质量发展战略要地，需坚持陆海统筹、人海和谐。' },
+    { title: '自贸试验区升级', cat: '经济', content: '2023年自贸试验区第七批改革试点经验复制推广。上海自贸区成立十周年，累计形成300多项制度创新成果。海南自贸港封关运作准备工作全面推进。', source: '商务部', insight: '申论角度：以开放促改革促发展，制度创新是自贸区核心使命。' },
+    { title: '县域经济', cat: '经济', content: '县域是国民经济的基本单元。2024年中央强调推进以县城为重要载体的城镇化建设，培育壮大县域特色优势产业，促进农民就近就业增收。', source: '国家发改委', insight: '申论角度：县域经济是城乡融合发展的关键节点，可联系农林经济管理专业。' },
+    { title: '消费品以旧换新', cat: '经济', content: '2024年3月，国务院印发《推动大规模设备更新和消费品以旧换新行动方案》。涵盖汽车、家电、家居等领域，预计每年拉动消费万亿级市场。', source: '国务院', insight: '申论角度：促进消费升级与绿色发展结合，既扩内需又推动节能减排。' },
+    { title: '数字乡村建设', cat: '农业', content: '2024年中央一号文件强调持续推进数字乡村建设。农村互联网普及率超66%，电商进农村覆盖超八成县市。数字技术赋能农业生产、流通、治理各环节。', source: '中央网信办', insight: '申论角度：数字技术缩小城乡差距，可联系农林经济管理专业，论述数字农业、智慧乡村。' },
+    { title: '长江经济带发展', cat: '生态', content: '长江经济带覆盖11省市，人口和GDP均占全国约40%。坚持"共抓大保护，不搞大开发"，长江干流连续3年保持II类水质。2023年长江"十年禁渔"取得阶段性成效。', source: '国家发改委', insight: '申论角度：生态优先、绿色发展，上下游联动、干支流协同治理。' },
+    { title: '专精特新企业', cat: '经济', content: '"专精特新"指专业化、精细化、特色化、新颖化的中小企业。截至2024年，我国已培育专精特新"小巨人"企业1.2万余家，它们是产业链供应链的关键节点。', source: '工信部', insight: '申论角度：中小企业是国民经济的毛细血管，需政策扶持、金融支持、创新赋能。' },
+    { title: '低空经济', cat: '科技', content: '2024年"低空经济"首次写入政府工作报告。低空经济是以无人机、eVTOL为核心的新经济形态，涵盖物流配送、空中游览、应急救援等。预计2025年规模达1.5万亿元。', source: '2024年政府工作报告', insight: '申论角度：新业态新模式的培育，需完善法规标准、基础设施、安全保障。' },
+    { title: '粮食节约行动', cat: '社会', content: '2021年《反食品浪费法》施行，2024年中央持续深入推进粮食节约行动。我国每年餐饮浪费约340-360亿斤粮食，约占粮食总产量的2.5%。', source: '国家发改委', insight: '申论角度：粮食安全是国之大者，节约粮食是每个公民的责任，需法治保障和道德约束并重。' },
+    { title: '中国式现代化', cat: '政治', content: '党的二十大明确了中国式现代化的五大特征：人口规模巨大、全体人民共同富裕、物质文明和精神文明相协调、人与自然和谐共生、走和平发展道路。', source: '党的二十大报告', insight: '申论角度：中国式现代化是必由之路，需从五大特征展开论述，结合新质生产力、共同富裕等。' }
+];
+
 const App = {
     currentModule: 'daily-tasks',
     currentSubTab: {},
@@ -553,7 +626,8 @@ const App = {
             'thesis': () => this.renderThesis(content),
             'exam': () => this.renderExam(content),
             'job': () => this.renderJob(content),
-            'fitness': () => this.renderFitness(content)
+            'fitness': () => this.renderFitness(content),
+            'hotspot': () => this.renderHotspot(content)
         };
 
         if (renderers[module]) renderers[module]();
@@ -617,6 +691,13 @@ const App = {
             }
         });
 
+        // 按时段分组
+        const periods = [
+            { id: 'morning', label: '🌅 上午', placeholder: '如：8:00 听逻辑课' },
+            { id: 'afternoon', label: '☀️ 下午', placeholder: '如：14:00 刷题100道' },
+            { id: 'evening', label: '🌙 晚上', placeholder: '如：20:00 写申论' }
+        ];
+
         container.innerHTML = `
             <div class="page-title"><span class="emoji">✅</span> 每日任务</div>
 
@@ -645,8 +726,21 @@ const App = {
 
             <div class="card">
                 <div class="card-title">➕ 添加今日任务</div>
-                <div class="form-row">
-                    <div class="form-group">
+                <div class="form-row" style="align-items:flex-end">
+                    <div class="form-group" style="max-width:120px;flex:0 0 120px">
+                        <label class="label">时段</label>
+                        <select class="select" id="newTaskPeriod">
+                            <option value="morning">🌅 上午</option>
+                            <option value="afternoon">☀️ 下午</option>
+                            <option value="evening">🌙 晚上</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="max-width:120px;flex:0 0 120px">
+                        <label class="label">执行时间</label>
+                        <input type="time" class="input" id="newTaskTime">
+                    </div>
+                    <div class="form-group" style="flex:1">
+                        <label class="label">任务内容</label>
                         <input type="text" class="input" id="newTaskInput"
                                placeholder="输入任务内容，完成后可得 ¥10 奖励～"
                                onkeypress="if(event.key==='Enter')App.addTask()">
@@ -655,12 +749,18 @@ const App = {
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-title">📝 今日任务列表 (${this.utils.formatDate(today)})</div>
-                <div id="taskListContainer">
-                    ${this.renderTaskList(tasks)}
-                </div>
-            </div>
+            ${periods.map(p => {
+                const periodTasks = tasks.filter(t => (t.period || 'morning') === p.id);
+                const periodDone = periodTasks.filter(t => t.done).length;
+                return `
+                    <div class="card">
+                        <div class="card-title">${p.label} <span style="font-size:13px;color:var(--text-sub);font-weight:400">(${periodDone}/${periodTasks.length})</span></div>
+                        <div id="taskList_${p.id}">
+                            ${this.renderTaskList(periodTasks)}
+                        </div>
+                    </div>
+                `;
+            }).join('')}
 
             <div class="card">
                 <div class="card-title">📅 月度日历 (${month})</div>
@@ -674,15 +774,21 @@ const App = {
 
     renderTaskList(tasks) {
         if (!tasks || tasks.length === 0) {
-            return `<div class="empty-state">
-                <div class="empty-state-icon">🌱</div>
-                <div class="empty-state-text">还没有任务哦，添加第一个任务开始吧！</div>
+            return `<div class="empty-state" style="padding:16px">
+                <div class="empty-state-text" style="font-size:13px">暂无任务</div>
             </div>`;
         }
-        return tasks.map(t => `
+        // 按时间排序
+        const sorted = [...tasks].sort((a, b) => {
+            const ta = a.time || '99:99';
+            const tb = b.time || '99:99';
+            return ta.localeCompare(tb);
+        });
+        return sorted.map(t => `
             <div class="task-item ${t.done ? 'done' : ''}">
                 <div class="task-checkbox ${t.done ? 'checked' : ''}"
                      onclick="App.toggleTask('${t.id}')">${t.done ? '✓' : ''}</div>
+                ${t.time ? `<span style="font-size:12px;font-weight:700;color:var(--primary);background:var(--primary-light);padding:2px 8px;border-radius:12px;flex-shrink:0">${this.utils.escape(t.time)}</span>` : ''}
                 <div class="task-text">${this.utils.escape(t.text)}</div>
                 <div class="task-reward">¥${t.reward}</div>
                 <button class="task-delete" onclick="App.deleteTask('${t.id}')">🗑</button>
@@ -692,6 +798,8 @@ const App = {
 
     addTask() {
         const input = document.getElementById('newTaskInput');
+        const periodSel = document.getElementById('newTaskPeriod');
+        const timeInput = document.getElementById('newTaskTime');
         const text = input.value.trim();
         if (!text) {
             this.toast('请输入任务内容～');
@@ -705,10 +813,13 @@ const App = {
             id: this.utils.uid(),
             text: text,
             done: false,
-            reward: 10
+            reward: 10,
+            period: periodSel.value,
+            time: timeInput.value || ''
         });
         this.saveData();
         input.value = '';
+        timeInput.value = '';
         this.navigate('daily-tasks');
         this.toast('任务添加成功！');
     },
@@ -1357,6 +1468,7 @@ const App = {
             { id: 'practice', label: '🎯 刷题', icon: '🎯' },
             { id: 'mistakes', label: '❌ 错题', icon: '❌' },
             { id: 'courses', label: '🎓 听课', icon: '🎓' },
+            { id: 'commonsense', label: '📖 常识', icon: '📖' },
             { id: 'essays', label: '✍️ 申论批改', icon: '✍️' },
             { id: 'sentences', label: '🌟 金句', icon: '🌟' }
         ];
@@ -1376,6 +1488,7 @@ const App = {
             practice: () => this.renderExamPractice(),
             mistakes: () => this.renderExamMistakes(),
             courses: () => this.renderExamCourses(),
+            commonsense: () => this.renderExamCommonSense(),
             essays: () => this.renderExamEssays(),
             sentences: () => this.renderExamSentences()
         };
@@ -1398,7 +1511,7 @@ const App = {
         const past = sorted.filter(c => c.days < 0);
 
         return `
-            <div class="card" style="background:linear-gradient(135deg,#FF6B9D,#FF8FB1);color:white;margin-bottom:12px">
+            <div class="card" style="background:linear-gradient(135deg,#7B5BA6,#9B7CC4);color:white;margin-bottom:12px">
                 <div style="font-size:13px;opacity:0.9">⏰ 考试倒计时</div>
                 ${upcoming.length > 0 ? upcoming.map(c => `
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding:8px 0;border-top:1px solid rgba(255,255,255,0.2)">
@@ -1779,6 +1892,84 @@ const App = {
         if (delta > 0) this.toast('🎉 又听完一节！');
     },
 
+    /* 常识与政治理论 - 每日推送5个 */
+    renderExamCommonSense() {
+        const container = document.getElementById('examContent');
+        const dayOfYear = this.getDayOfYear();
+        const today = this.utils.formatDate(this.utils.today());
+
+        // 每天推送5个不同知识点
+        const daily5 = [];
+        for (let i = 0; i < 5; i++) {
+            const idx = (dayOfYear * 5 + i) % COMMON_SENSE_LIBRARY.length;
+            daily5.push(COMMON_SENSE_LIBRARY[idx]);
+        }
+
+        // 统计分类
+        const cats = [...new Set(COMMON_SENSE_LIBRARY.map(c => c.cat))];
+        const catCounts = {};
+        cats.forEach(c => { catCounts[c] = COMMON_SENSE_LIBRARY.filter(x => x.cat === c).length; });
+
+        // 展开答案的状态
+        if (!this._csExpanded) this._csExpanded = {};
+
+        container.innerHTML = `
+            <div class="card" style="background:linear-gradient(135deg,#7B5BA6,#9B7CC4);color:white">
+                <div style="font-size:13px;opacity:0.9">📖 每日常识推送</div>
+                <div style="margin-top:4px;font-size:13px;opacity:0.85">
+                    ${today} · 每日更新5个知识点 · 第${dayOfYear}天
+                </div>
+            </div>
+
+            ${daily5.map((item, i) => {
+                const expanded = this._csExpanded[i];
+                return `
+                    <div class="card" style="${i === 0 ? 'border:2px solid #7B5BA6' : ''}">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="badge badge-purple">${item.cat}</span>
+                            <span class="text-sm text-muted">第${i + 1}题</span>
+                        </div>
+                        <div style="font-size:15px;font-weight:600;color:var(--text-main);line-height:1.6;margin-bottom:8px">
+                            ${this.utils.escape(item.q)}
+                        </div>
+                        ${expanded ? `
+                            <div style="padding:10px;background:var(--success-light);border-radius:8px;font-size:14px;color:var(--text-main);line-height:1.7;margin-bottom:6px">
+                                <strong>✅ 答：</strong>${this.utils.escape(item.a)}
+                            </div>
+                            <div class="text-sm text-muted">📎 来源：${this.utils.escape(item.source)}</div>
+                            <button class="btn btn-outline btn-sm mt-2" onclick="App._toggleCS(${i})">收起答案</button>
+                        ` : `
+                            <button class="btn btn-primary btn-sm mt-2" onclick="App._toggleCS(${i})">👀 查看答案</button>
+                        `}
+                    </div>
+                `;
+            }).join('')}
+
+            <div class="card">
+                <div class="card-title">🏷 知识库分类 (${COMMON_SENSE_LIBRARY.length}个知识点)</div>
+                <div class="flex gap-2 flex-wrap">
+                    ${cats.map(c => `<span class="badge badge-purple" style="cursor:default">${c}(${catCounts[c]})</span>`).join('')}
+                </div>
+            </div>
+
+            <div class="card" style="background:var(--accent-light)">
+                <div style="font-size:13px;color:var(--text-sub);line-height:1.7">
+                    💡 <strong>使用说明：</strong><br>
+                    · 每天推送5个不同知识点，覆盖法律/政治/经济/地理/历史/文学/科技等<br>
+                    · 先自己思考答案，再点击"查看答案"<br>
+                    · 常识题在行测中占比较大，建议每天坚持积累<br>
+                    · 政治理论部分需结合时政热点理解记忆
+                </div>
+            </div>
+        `;
+    },
+
+    _toggleCS(idx) {
+        if (!this._csExpanded) this._csExpanded = {};
+        this._csExpanded[idx] = !this._csExpanded[idx];
+        this.renderExamCommonSense();
+    },
+
     renderExamEssays() {
         const essays = this.data.exam.essays;
         const container = document.getElementById('examContent');
@@ -2144,7 +2335,7 @@ const App = {
         const mySentences = this.data.exam.goldenSentences;
 
         container.innerHTML = `
-            <div class="card" style="background:linear-gradient(135deg,#FF6B9D,#FF8FB1);color:white">
+            <div class="card" style="background:linear-gradient(135deg,#7B5BA6,#9B7CC4);color:white">
                 <div style="font-size:13px;opacity:0.9">☀️ 每日金句推荐</div>
                 <div style="margin-top:4px;font-size:13px;opacity:0.85">
                     ${today} · 每日自动更新3条精选金句
@@ -2154,7 +2345,7 @@ const App = {
             ${dailyPicks.map((s, i) => {
                 const alreadyCollected = mySentences.some(ms => ms.content === s.content);
                 return `
-                    <div class="card" style="${i === 0 ? 'border:2px solid #FF6B9D' : ''}">
+                    <div class="card" style="${i === 0 ? 'border:2px solid #7B5BA6' : ''}">
                         <div class="flex justify-between items-center mb-2">
                             <span class="badge badge-purple">${s.category}</span>
                             <span class="text-sm text-muted">第${dayOfYear}天 · 第${i + 1}条</span>
@@ -2594,10 +2785,10 @@ const App = {
                     ✅ 推送已开启！点击下方平台可直达招聘页面，搜索结果已按你的条件预筛选。
                 </div>
 
-                <div style="margin-top:12px;padding:12px;background:linear-gradient(135deg,#FF6B9D,#FF8FB1);border-radius:12px;text-align:center">
+                <div style="margin-top:12px;padding:12px;background:linear-gradient(135deg,#7B5BA6,#9B7CC4);border-radius:12px;text-align:center">
                     <div style="color:white;font-size:14px;font-weight:700;margin-bottom:8px">🚀 一键全平台搜索</div>
                     <div style="color:white;font-size:12px;opacity:0.9;margin-bottom:10px">点击后同时打开多个招聘平台搜索页</div>
-                    <button class="btn btn-primary" style="width:100%;background:white;color:#FF6B9D;border:none" onclick="App.searchJobOnline()">
+                    <button class="btn btn-primary" style="width:100%;background:white;color:#7B5BA6;border:none" onclick="App.searchJobOnline()">
                         🔍 立即搜索央国企岗位
                     </button>
                 </div>
@@ -2909,7 +3100,7 @@ const App = {
 
             <div class="card">
                 <div class="card-title">📉 体重趋势</div>
-                ${this.renderWeightChart(data, 'weight', '#FF6B9D', 'kg')}
+                ${this.renderWeightChart(data, 'weight', '#7B5BA6', 'kg')}
             </div>
 
             ${latest.hip || latest.thigh ? `
@@ -3268,7 +3459,7 @@ const App = {
         const container = document.getElementById('fitnessContent');
         container.innerHTML = `
             ${inPeriod ? `
-            <div class="card" style="background:linear-gradient(135deg,#FF6B9D,#FF8FB1);color:white;text-align:center">
+            <div class="card" style="background:linear-gradient(135deg,#7B5BA6,#9B7CC4);color:white;text-align:center">
                 <div style="font-size:32px">🌸</div>
                 <div style="font-size:16px;font-weight:700;margin-top:4px">经期中 · 注意休息</div>
                 <div style="font-size:13px;opacity:0.9;margin-top:4px">避免高强度训练，可做轻柔拉伸或散步</div>
@@ -3387,6 +3578,129 @@ const App = {
         this.data.fitness.period.records = this.data.fitness.period.records.filter(r => r.id !== id);
         this.saveData();
         this.navigate('fitness');
+    },
+
+    // ==================== 政治经济热点模块 ====================
+    renderHotspot(container) {
+        const dayOfYear = this.getDayOfYear();
+        const today = this.utils.formatDate(this.utils.today());
+
+        // 每天推送5个不同热点
+        const daily5 = [];
+        for (let i = 0; i < 5; i++) {
+            const idx = (dayOfYear * 5 + i) % HOTSPOT_LIBRARY.length;
+            daily5.push(HOTSPOT_LIBRARY[idx]);
+        }
+
+        // 分类统计
+        const cats = [...new Set(HOTSPOT_LIBRARY.map(h => h.cat))];
+        const catCounts = {};
+        cats.forEach(c => { catCounts[c] = HOTSPOT_LIBRARY.filter(h => h.cat === c).length; });
+
+        container.innerHTML = `
+            <div class="page-title"><span class="emoji">🔥</span> 政治经济热点</div>
+
+            <div class="card" style="background:linear-gradient(135deg,#7B5BA6,#9B7CC4);color:white">
+                <div style="font-size:13px;opacity:0.9">🔥 每日热点推送</div>
+                <div style="margin-top:4px;font-size:13px;opacity:0.85">
+                    ${today} · 每日更新5个政治经济热点 · 第${dayOfYear}天
+                </div>
+            </div>
+
+            ${daily5.map((item, i) => `
+                <div class="card" style="${i === 0 ? 'border:2px solid #7B5BA6' : ''}">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="badge badge-purple">${item.cat}</span>
+                        <span class="badge badge-orange">⭐ 今日热点${i + 1}</span>
+                    </div>
+                    <div style="font-size:16px;font-weight:700;color:var(--text-main);line-height:1.6;margin-bottom:10px">
+                        ${this.utils.escape(item.title)}
+                    </div>
+                    <div style="font-size:14px;color:var(--text-sub);line-height:1.8;margin-bottom:10px">
+                        ${this.utils.escape(item.content)}
+                    </div>
+                    <div style="padding:10px;background:var(--warning-light);border-radius:8px;font-size:13px;color:var(--text-sub);line-height:1.7;margin-bottom:8px">
+                        <strong>💡 申论角度：</strong><br>${this.utils.escape(item.insight)}
+                    </div>
+                    <div class="text-sm text-muted">📎 来源：${this.utils.escape(item.source)}</div>
+                </div>
+            `).join('')}
+
+            <div class="card">
+                <div class="card-title">🏷 热点分类 (${HOTSPOT_LIBRARY.length}个热点)</div>
+                <div class="flex gap-2 flex-wrap">
+                    ${cats.map(c => `<span class="badge badge-purple" style="cursor:default">${c}(${catCounts[c]})</span>`).join('')}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📰 热点追踪平台</div>
+                <div style="font-size:13px;color:var(--text-sub);margin-bottom:10px">
+                    点击以下平台，追踪最新政治经济热点动态
+                </div>
+                <a href="http://www.people.com.cn/" target="_blank" style="text-decoration:none;color:inherit">
+                    <div class="list-item">
+                        <div style="font-size:24px">📰</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">人民日报</div>
+                            <div class="list-item-sub">权威政策解读</div>
+                        </div>
+                        <span style="color:var(--text-light)">↗</span>
+                    </div>
+                </a>
+                <a href="https://www.xuexi.cn/" target="_blank" style="text-decoration:none;color:inherit">
+                    <div class="list-item">
+                        <div style="font-size:24px">📚</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">学习强国</div>
+                            <div class="list-item-sub">最新理论动态</div>
+                        </div>
+                        <span style="color:var(--text-light)">↗</span>
+                    </div>
+                </a>
+                <a href="http://www.banyuetan.org/" target="_blank" style="text-decoration:none;color:inherit">
+                    <div class="list-item">
+                        <div style="font-size:24px">📖</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">半月谈</div>
+                            <div class="list-item-sub">时政热点深度分析</div>
+                        </div>
+                        <span style="color:var(--text-light)">↗</span>
+                    </div>
+                </a>
+                <a href="https://www.gov.cn/" target="_blank" style="text-decoration:none;color:inherit">
+                    <div class="list-item">
+                        <div style="font-size:24px">🏛</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">中国政府网</div>
+                            <div class="list-item-sub">国务院政策文件</div>
+                        </div>
+                        <span style="color:var(--text-light)">↗</span>
+                    </div>
+                </a>
+                <a href="https://www.ndrc.gov.cn/" target="_blank" style="text-decoration:none;color:inherit">
+                    <div class="list-item">
+                        <div style="font-size:24px">📊</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">国家发改委</div>
+                            <div class="list-item-sub">经济政策权威发布</div>
+                        </div>
+                        <span style="color:var(--text-light)">↗</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="background:var(--accent-light)">
+                <div style="font-size:13px;color:var(--text-sub);line-height:1.7">
+                    💡 <strong>使用说明：</strong><br>
+                    · 每天推送5个不同政治经济热点，覆盖经济/科技/农业/社会/生态/金融/政治等领域<br>
+                    · 每个热点含背景介绍、来源标注和申论写作角度<br>
+                    · 建议结合申论金句和案例库一起学习<br>
+                    · 热点来源均为官方媒体报道，可放心引用<br>
+                    · 重点关注与农林经济管理专业相关的话题（如乡村振兴、粮食安全等）
+                </div>
+            </div>
+        `;
     },
 
     // ==================== PWA Service Worker ====================
