@@ -1,13 +1,14 @@
 // 棒棒冰工作台 - Service Worker
-const CACHE_NAME = 'bangbangbing-v5';
+const CACHE_NAME = 'bangbangbing-v6';
 const ASSETS = [
     './',
     './index.html',
     './css/style.css',
     './js/app.js',
     './manifest.json',
-    './icons/icon-192.svg',
-    './icons/icon-512.svg'
+    './icons/icon-192.png',
+    './icons/icon-512.png',
+    './icons/icon-512-maskable.png'
 ];
 
 self.addEventListener('install', (event) => {
