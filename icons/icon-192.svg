@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B9D"/>
+      <stop offset="100%" style="stop-color:#FF8FB1"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="url(#bg)"/>
+  <!-- Bear ears -->
+  <circle cx="58" cy="48" r="18" fill="#8B5E3C"/>
+  <circle cx="134" cy="48" r="18" fill="#8B5E3C"/>
+  <circle cx="58" cy="48" r="10" fill="#D4A574"/>
+  <circle cx="134" cy="48" r="10" fill="#D4A574"/>
+  <!-- Bear face -->
+  <circle cx="96" cy="100" r="52" fill="#D4A574"/>
+  <!-- Snout -->
+  <ellipse cx="96" cy="118" rx="22" ry="16" fill="#F5DEB3"/>
+  <!-- Nose -->
+  <ellipse cx="96" cy="108" rx="8" ry="6" fill="#2D3436"/>
+  <!-- Eyes -->
+  <circle cx="78" cy="90" r="6" fill="#2D3436"/>
+  <circle cx="114" cy="90" r="6" fill="#2D3436"/>
+  <circle cx="80" cy="88" r="2" fill="white"/>
+  <circle cx="116" cy="88" r="2" fill="white"/>
+  <!-- Mouth -->
+  <path d="M 88 120 Q 96 126 104 120" stroke="#2D3436" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Cheeks -->
+  <circle cx="68" cy="110" r="8" fill="#FF6B9D" opacity="0.4"/>
+  <circle cx="124" cy="110" r="8" fill="#FF6B9D" opacity="0.4"/>
+</svg>
