@@ -398,7 +398,12 @@ const App = {
         this.loadData();
         this.updateTopBar();
         this.registerSW();
+        // 桌面端默认展开侧边栏，移动端默认收起（抽屉）
+        if (window.innerWidth >= 769) document.body.classList.add('sidebar-open');
         this.navigate('daily-tasks');
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 769) document.body.classList.add('sidebar-open');
+        });
     },
 
     // ==================== 数据层 ====================
@@ -613,6 +618,8 @@ const App = {
     // ==================== 导航 ====================
     navigate(module) {
         this.currentModule = module;
+        // 移动端选中后自动收起侧边栏，避免遮挡内容
+        if (window.innerWidth < 769) document.body.classList.remove('sidebar-open');
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.toggle('active', item.dataset.module === module);
         });
@@ -633,6 +640,11 @@ const App = {
         if (renderers[module]) renderers[module]();
 
         setTimeout(() => content.classList.remove('fade-in'), 300);
+    },
+
+    // 侧边栏收起/展开（抽屉式）
+    toggleSidebar() {
+        document.body.classList.toggle('sidebar-open');
     },
 
     // ==================== Toast ====================
@@ -2758,7 +2770,10 @@ const App = {
             <div class="page-title"><span class="emoji">💼</span> 求职</div>
 
             <div class="card" style="background:linear-gradient(135deg,#A78BFA,#C4B5FD);color:white">
-                <div style="font-size:13px;opacity:0.9">📋 我的求职画像</div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div style="font-size:13px;opacity:0.9">📋 我的求职画像</div>
+                    <button class="btn btn-sm" style="background:rgba(255,255,255,0.3);color:white;border:none" onclick="App.editJobProfile()">✏️ 编辑</button>
+                </div>
                 <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
                     <span style="background:rgba(255,255,255,0.25);padding:4px 12px;border-radius:20px;font-size:13px">🎓 ${job.filters.degree}</span>
                     <span style="background:rgba(255,255,255,0.25);padding:4px 12px;border-radius:20px;font-size:13px">👩 ${job.filters.gender}</span>
@@ -2800,6 +2815,37 @@ const App = {
 
                 ${this.renderJobDeadlineAlerts(sorted, statuses)}
                 ` : ''}
+            </div>
+
+            <div class="card">
+                <div class="card-title">📱 央国企招聘优质公众号</div>
+                <div style="font-size:12px;color:var(--text-sub);margin-bottom:10px;line-height:1.7">
+                    官网信息分散难找，建议关注以下微信公众号，第一时间获取央企/国企/事业单位招聘推送（在微信搜索框输入名称即可关注）：
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                    ${this.jobOfficialAccounts.map(a => `
+                    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--bg-main);border-radius:10px">
+                        <span style="font-size:22px">${a.icon}</span>
+                        <div style="flex:1">
+                            <div style="font-weight:600;font-size:14px">${a.name}</div>
+                            <div style="font-size:12px;color:var(--text-sub)">${a.desc}</div>
+                        </div>
+                        <span style="font-size:16px;color:var(--text-light)">↗</span>
+                    </div>`).join('')}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📑 招聘要求段落识别</div>
+                <div style="font-size:12px;color:var(--text-sub);margin-bottom:10px;line-height:1.7">
+                    把招聘公告里的「任职要求 / 报考条件」整段粘贴进来，AI 自动提取学历、专业、技能证书、经验年限等关键要求，并给出简历修改建议。
+                </div>
+                <textarea class="input" id="jdInput" rows="5" placeholder="例：硕士研究生及以上学历，农林经济管理、管理学相关专业；通过英语六级；具有1年以上实习或项目经验；中共党员优先……" style="width:100%;resize:vertical;font-family:inherit"></textarea>
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <button class="btn btn-primary" style="flex:1" onclick="App.analyzeJD()">🔍 AI识别要求</button>
+                    <button class="btn btn-outline" style="flex:1" onclick="App.optimizeResume()">📝 简历修改建议</button>
+                </div>
+                <div id="jdResult"></div>
             </div>
 
             <div class="card">
@@ -2868,6 +2914,18 @@ const App = {
             `}
         `;
     },
+
+    // 央国企招聘优质公众号（在微信搜索名称即可关注）
+    jobOfficialAccounts: [
+        { name: '国资小新', icon: '🏛', desc: '国务院国资委官方号，央企招聘权威发布' },
+        { name: '央企招聘', icon: '🏢', desc: '各大央企集团招聘信息汇总' },
+        { name: '国企招聘网', icon: '📋', desc: '国企/事业单位每日招聘推送' },
+        { name: '中公国企招聘', icon: '🎓', desc: '中公教育国企招考资讯' },
+        { name: '华图国企招聘', icon: '📚', desc: '华图教育国企笔试面试' },
+        { name: '应届生求职网', icon: '🎯', desc: '校招/实习信息聚合' },
+        { name: '校园招聘', icon: '🏫', desc: '全国校园招聘官方号' },
+        { name: '国企人事招聘', icon: '📝', desc: '地方国企人事考试通知' }
+    ],
 
     // 央国企招聘平台数据
     jobPlatforms: [
@@ -2947,6 +3005,198 @@ const App = {
         this.saveData();
         this.navigate('job');
         this.toast(this.data.job.pushEnabled ? '推送已开启！点击平台链接即可搜索岗位' : '推送已关闭');
+    },
+
+    // 编辑求职画像
+    editJobProfile() {
+        const job = this.data.job;
+        const degrees = ['双非硕士', '管理学硕士', '工商管理硕士(MBA)', '985硕士', '211硕士', '普通硕士', '本科', '博士', '大专'];
+        const genders = ['女', '男', '不限'];
+        const content = `
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">学历</label>
+                    <select class="select" id="profileDegree">
+                        ${degrees.map(d => `<option value="${d}" ${job.filters.degree === d ? 'selected' : ''}>${d}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">性别</label>
+                    <select class="select" id="profileGender">
+                        ${genders.map(g => `<option value="${g}" ${job.filters.gender === g ? 'selected' : ''}>${g}</option>`).join('')}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">专业</label>
+                <input type="text" class="input" id="profileMajor" value="${this.utils.escape(job.filters.major)}" placeholder="如：农林经济管理">
+            </div>
+        `;
+        this.showModal('编辑求职画像', content, () => {
+            job.filters.degree = document.getElementById('profileDegree').value;
+            job.filters.gender = document.getElementById('profileGender').value;
+            job.filters.major = document.getElementById('profileMajor').value.trim() || '未填写';
+            this.saveData();
+            this.navigate('job');
+            this.toast('求职画像已更新 ✅');
+        });
+    },
+
+    // 段落识别：从招聘要求文本中提取关键要求
+    analyzeJD() {
+        const raw = document.getElementById('jdInput').value.trim();
+        const box = document.getElementById('jdResult');
+        if (!raw) {
+            this.toast('请先粘贴招聘要求文本～');
+            return;
+        }
+        const text = raw.replace(/\s+/g, ' ');
+
+        // 1. 学历
+        const degreeRules = [
+            { kw: ['博士'], label: '博士及以上' },
+            { kw: ['硕士'], label: '硕士研究生及以上' },
+            { kw: ['本科'], label: '本科及以上' },
+            { kw: ['大专', '专科'], label: '大专及以上' },
+            { kw: ['985'], label: '985院校优先' },
+            { kw: ['211'], label: '211院校优先' },
+            { kw: ['双一流'], label: '双一流院校优先' }
+        ];
+        const degrees = [];
+        degreeRules.forEach(r => { if (r.kw.some(k => text.includes(k))) degrees.push(r.label); });
+
+        // 2. 专业
+        const majorList = ['农林经济管理', '管理学', '工商管理', '公共管理', '经济学', '金融', '会计', '财务', '市场营销', '人力资源管理', '行政管理', '国际经济与贸易', '统计学', '审计', '农业经济', '农村发展', '产业经济'];
+        const majors = majorList.filter(m => text.includes(m));
+        if (text.includes('相关专业')) majors.push('（要求）相关专业');
+
+        // 3. 技能 / 证书
+        const skillRules = [
+            { kw: ['英语六级', 'cet-6', 'cet6', '六级'], label: '英语六级' },
+            { kw: ['英语四级', 'cet-4', 'cet4', '四级'], label: '英语四级' },
+            { kw: ['计算机二级'], label: '计算机二级' },
+            { kw: ['普通话'], label: '普通话等级' },
+            { kw: ['教师资格'], label: '教师资格证' },
+            { kw: ['会计证', '初级会计', 'cpa', '注册会计师'], label: '会计类证书' },
+            { kw: ['法律职业资格', '法考'], label: '法律职业资格' },
+            { kw: ['驾驶证', '驾照'], label: '机动车驾驶证' },
+            { kw: ['python', 'java', 'c++', '编程'], label: '编程能力' },
+            { kw: ['excel', 'office', '办公软件'], label: '办公软件熟练' },
+            { kw: ['数据分析', 'spss', 'stata', 'sas'], label: '数据分析工具' }
+        ];
+        const skills = [];
+        skillRules.forEach(r => { if (r.kw.some(k => text.toLowerCase().includes(k))) skills.push(r.label); });
+
+        // 4. 经验年限
+        const expMatch = text.match(/(\d+)\s*年以上?/);
+        const internMatch = text.match(/(\d+)\s*个月?实习/);
+        const exp = [];
+        if (expMatch) exp.push(`工作经验 ${expMatch[1]} 年以上`);
+        if (internMatch) exp.push(`实习 ${internMatch[1]} 个月以上`);
+        if (text.includes('应届')) exp.push('应届生可报');
+        if (text.includes('无经验') || text.includes('经验不限')) exp.push('经验不限');
+
+        // 5. 其他优先条件
+        const other = [];
+        if (text.includes('党员')) other.push('中共党员（含预备）优先');
+        if (text.includes('学生干部')) other.push('学生干部经历优先');
+        if (text.includes('奖学金')) other.push('奖学金获得者优先');
+        if (text.includes('实习')) other.push('有实习经历优先');
+        if (text.includes('班干部')) other.push('班干部经历优先');
+
+        const sections = [
+            { title: '🎓 学历要求', items: degrees, empty: '未明确提及学历要求' },
+            { title: '📖 专业要求', items: majors, empty: '未明确提及专业限制' },
+            { title: '🛠 技能 / 证书', items: skills, empty: '未提及特定技能或证书' },
+            { title: '⏳ 经验年限', items: exp, empty: '未明确提及经验要求' },
+            { title: '⭐ 其他优先条件', items: other, empty: '无其他优先条件' }
+        ];
+
+        box.innerHTML = `
+            <div style="margin-top:12px;padding:12px;background:var(--primary-light);border-radius:10px">
+                <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px">✅ 已识别关键要求</div>
+                ${sections.map(s => `
+                    <div style="margin-bottom:8px">
+                        <div style="font-size:13px;font-weight:600;color:var(--text-main)">${s.title}</div>
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+                            ${s.items.length ? s.items.map(i => `<span style="background:white;color:var(--primary);padding:3px 10px;border-radius:14px;font-size:12px;border:1px solid var(--primary-light)">${this.utils.escape(i)}</span>`).join('') : `<span style="color:var(--text-sub);font-size:12px">${s.empty}</span>`}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="App.optimizeResume()">📝 根据要求生成简历修改建议</button>
+        `;
+        this.toast('要求识别完成 ✅');
+    },
+
+    // 根据识别结果与个人画像生成简历修改建议
+    optimizeResume() {
+        const raw = document.getElementById('jdInput').value.trim();
+        const box = document.getElementById('jdResult');
+        const job = this.data.job;
+
+        if (!raw) {
+            this.toast('请先在上方粘贴招聘要求并点「AI识别要求」～');
+            return;
+        }
+
+        const text = raw.replace(/\s+/g, ' ').toLowerCase();
+        const tips = [];
+
+        // 学历匹配
+        const userIsMaster = job.filters.degree.includes('硕士');
+        if (text.includes('硕士') && userIsMaster) {
+            tips.push({ ok: true, t: `学历匹配：你的「${job.filters.degree}」满足"硕士及以上"要求，简历教育背景栏把硕士学历、毕业院校、研究方向放在醒目位置。` });
+        } else if (text.includes('硕士') && !userIsMaster) {
+            tips.push({ ok: false, t: `学历预警：岗位要求硕士，你当前画像为「${job.filters.degree}」，简历如实填写，可突出科研/项目弥补，或考虑放宽投递范围。` });
+        } else if (text.includes('本科') && job.filters.degree.includes('本科')) {
+            tips.push({ ok: true, t: '学历匹配：本科要求已满足，简历突出专业排名与核心课程成绩。' });
+        }
+
+        // 专业匹配
+        const majorHit = ['农林经济管理', '管理学', '工商管理', '公共管理', '经济学', '农业经济', '农村发展'].filter(m => text.includes(m));
+        if (majorHit.length) {
+            tips.push({ ok: true, t: `专业匹配：岗位涉及「${majorHit.join('、')}」，与你的「${job.filters.major}」高度相关。简历中写明主修课程（如农业经济学、管理学原理）、毕业论文/项目方向与岗位的对应关系。` });
+        } else if (text.includes('相关专业')) {
+            tips.push({ ok: true, t: '岗位接受"相关专业"，简历中主动说明你的专业与岗位的关联点，避免被系统初筛误杀。' });
+        }
+
+        // 英语
+        if (text.includes('六级') || text.includes('cet-6') || text.includes('cet6')) {
+            tips.push({ ok: true, t: '英语要求：若已通过六级，简历证书栏明确标注"CET-6 XXX分"；若未过，写"正在备考六级"并突出阅读英文文献能力。' });
+        }
+        // 党员
+        if (text.includes('党员')) {
+            tips.push({ ok: false, t: '政治面貌：岗位优先党员。若你是党员，务必在简历顶部基本信息写明"中共党员"；若不是，可不填此项，用学生干部/奖学金经历补充。' });
+        }
+        // 实习/经验
+        const expM = text.match(/(\d+)\s*年以上?/);
+        if (expM) {
+            tips.push({ ok: true, t: `经验要求：岗位要求${expM[1]}年以上。简历用"STAR法则"写清每段实习/项目的时长、职责、量化成果（如"完成X报告，提升Y效率Z%"）。` });
+        }
+        // 技能
+        if (text.includes('excel') || text.includes('office') || text.includes('数据分析')) {
+            tips.push({ ok: true, t: '技能要求：在简历"技能"栏列出 Excel（数据透视表/函数）、SPSS/Stata 等，并附一句应用实例。' });
+        }
+        if (text.includes('python') || text.includes('编程')) {
+            tips.push({ ok: true, t: '技能要求：标注 Python 及常用库（pandas/numpy），附课程设计或爬虫/分析小项目链接。' });
+        }
+        // 通用建议
+        tips.push({ ok: true, t: '简历格式：使用一页纸、清晰分栏（教育/实习/项目/技能），关键词与JD保持一致，方便企业ATS系统初筛通过。' });
+        tips.push({ ok: true, t: '自我评价：针对该岗位写3条，每条对应一条JD要求，用"要求→我的匹配"结构，让HR一眼看到契合度。' });
+
+        box.innerHTML = `
+            <div style="margin-top:12px;padding:12px;background:var(--success-light);border-radius:10px">
+                <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:8px">📝 简历修改建议（基于你的画像：${this.utils.escape(job.filters.degree)} · ${this.utils.escape(job.filters.major)}）</div>
+                ${tips.map(tp => `
+                    <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;font-size:13px;line-height:1.6;color:var(--text-sub)">
+                        <span style="flex-shrink:0">${tp.ok ? '✅' : '⚠️'}</span>
+                        <span>${tp.t}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        this.toast('已生成简历修改建议 📝');
     },
 
     addJob() {
