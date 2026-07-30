@@ -78,6 +78,26 @@ html, body {
     gap: 8px;
 }
 
+.hamburger {
+    background: rgba(255, 255, 255, 0.22);
+    border: none;
+    color: white;
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.hamburger:active {
+    background: rgba(255, 255, 255, 0.4);
+}
+
 .app-logo {
     font-size: 24px;
 }
@@ -117,7 +137,7 @@ html, body {
     overflow: hidden;
 }
 
-/* ---------- 左侧导航 ---------- */
+/* ---------- 左侧导航（抽屉式，可收起） ---------- */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--bg-sidebar);
@@ -128,6 +148,33 @@ html, body {
     overflow-y: auto;
     flex-shrink: 0;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
+    position: fixed;
+    top: var(--topbar-height);
+    left: 0;
+    bottom: 0;
+    z-index: 95;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+body.sidebar-open .sidebar {
+    transform: translateX(0);
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    top: var(--topbar-height);
+    background: rgba(45, 36, 56, 0.4);
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+body.sidebar-open .sidebar-backdrop {
+    opacity: 1;
+    visibility: visible;
 }
 
 .nav-item {
@@ -172,6 +219,14 @@ html, body {
     overflow-y: auto;
     padding: 16px;
     -webkit-overflow-scrolling: touch;
+    transition: margin-left 0.3s ease;
+}
+
+/* 桌面端：侧边栏展开时内容右移，避免被固定抽屉遮挡 */
+@media (min-width: 769px) {
+    body.sidebar-open .content {
+        margin-left: var(--sidebar-width);
+    }
 }
 
 /* ---------- 通用组件 ---------- */
@@ -938,22 +993,23 @@ html, body {
 /* ---------- 响应式 ---------- */
 @media (max-width: 768px) {
     .sidebar {
-        width: var(--sidebar-width-mobile);
-        padding: 10px 4px;
+        width: 210px;
+        padding: 12px 8px;
+        box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
     }
 
     .nav-item {
-        justify-content: center;
-        padding: 12px 8px;
+        justify-content: flex-start;
+        padding: 12px 14px;
     }
 
     .nav-label {
-        display: none;
+        display: inline;
     }
 
     .nav-icon {
-        font-size: 24px;
-        width: auto;
+        font-size: 22px;
+        width: 28px;
     }
 
     .app-title {
